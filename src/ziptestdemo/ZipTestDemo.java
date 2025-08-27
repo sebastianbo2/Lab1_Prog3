@@ -40,8 +40,6 @@ public class ZipTestDemo {
             String z1_code = z1.GetBarCode();
             ZipCode z2 = new ZipCode(z1_code);
              System.out.printf("  %02d  %05d has code %s " ,  i + 1 , z2.Zip,z1_code);
-             System.out.println("ZIP CODE: " + z2.Zip);
-             System.out.println("BINARY VERSION: " + z1_code);
             if ((z1_code.equals(z2.GetBarCode())) &&
                             (z1.Zip == z2.Zip) &&
                             (z2.Zip == five_digit_zip))

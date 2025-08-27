@@ -26,16 +26,24 @@ public class ZipCode {
     };
     
     public int Zip;
-    private String binaryCode;
     
     public ZipCode(int barCode) {
-        if (barCode == 995047) {
-            this.Zip = 95047;
-            this.binaryCode = "10101010101010101010101011";
-            return;
-        }
+        this.Zip = barCode;
+    }
+    
+    public ZipCode(String barCode) {
+        // TODO, test for errors + get the int version of the barcodes
+        this.Zip = ParseBarCode(barCode);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String GetBarCode() {
+        String finalCode = "";
         
-        String tempCode = "" + barCode;
+        String tempCode = "" + this.Zip % 100000;
         
         if (tempCode.length() < 5) {
             while (tempCode.length() < 5) {
@@ -45,32 +53,13 @@ public class ZipCode {
             // TODO, ERROR PRINT
             System.out.println("");
         }
-        String finalCode = "";
-        
-        this.Zip = barCode;
-        System.out.println("HELLO: " + this.Zip);
         
         while (!tempCode.isEmpty()) {
             finalCode = finalCode + weights[tempCode.charAt(0) - '0'];
             tempCode = tempCode.substring(1);
         }
         
-        this.binaryCode = "1" + finalCode + "1";
-    }
-    
-    public ZipCode(String barCode) {
-        // TODO, test for errors + get the int version of the barcodes
-        
-        this.binaryCode = barCode;
-        this.Zip = ParseBarCode(barCode);
-    }
-    
-    /**
-     * 
-     * @return 
-     */
-    public String GetBarCode() {
-        return binaryCode;
+        return "1" + finalCode + "1";
     }
     
     /**
@@ -78,9 +67,26 @@ public class ZipCode {
      * @param code
      * @return 
      */
-    public int ParseBarCode(String code) {
+    private int ParseBarCode(String code) {
         if (code.length() % 5 == 2 ) {
+            code = code.substring(1, code.length() - 1);
             
+            int finalCode = 0;
+            
+            while (code.length() > 0) {
+                String part = code.substring(0, 5);
+                
+                for (int i = 0; i < weights.length; i++) {
+                    if (weights[i].equals(part)) {
+                        finalCode *= 10;
+                        finalCode += i;
+                    }
+                }
+                
+                code = code.substring(5);
+            }
+            
+            return finalCode;
         } else {
             System.out.println("INVALID BAR CODE FORMAT");
         }
