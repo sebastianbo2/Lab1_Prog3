@@ -1,7 +1,4 @@
 package ziptestdemo;
-
-import java.util.Arrays;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -85,8 +82,8 @@ public class ZipCode {
     }
     
     /**
-     * 
-     * @return 
+     * converts the bar code to a binary code in order to return it
+     * @return the converted bar code in binary format
      */
     public String GetBarCode() {
         String finalCode = "";
@@ -112,8 +109,8 @@ public class ZipCode {
     
     /**
      * parses a binary bar code to return the decimal version of it
-     * @param code
-     * @return 
+     * @param code the binary bar code
+     * @return the parsed bar code as an integer
      */
     private int ParseBarCode(String code) {
         if (code.length() % 5 == 2 ) {
