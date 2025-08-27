@@ -1,3 +1,5 @@
+// GITHUB REPO LINK - https://github.com/sebastianbo2/Lab1_Prog3
+
 package ziptestdemo;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -5,8 +7,8 @@ package ziptestdemo;
  */
 
 /**
- *
- * @author 6305020
+ * GITHUB REPO LINK - https://github.com/sebastianbo2/Lab1_Prog3
+ * @author Sebastian Bobos 6305020
  */
 public class ZipCode {
     private final String[] weights = {
@@ -25,6 +27,12 @@ public class ZipCode {
     public int Zip;
     
     public ZipCode(int barCode) {
+        String stringCode = "" + barCode;
+        
+        if (stringCode.length() > 5) {
+            System.out.println(barCode + " zip code is more than 5 digits");
+        }
+        
         this.Zip = barCode;
     }
     
