@@ -32,8 +32,56 @@ public class ZipCode {
     }
     
     public ZipCode(String barCode) {
+        boolean err = false;
         // TODO, test for errors + get the int version of the barcodes
-        this.Zip = ParseBarCode(barCode);
+        if (barCode.length() % 5 != 2) {
+            System.out.println("Error: bar code must be in multiples of 5-binary digits");
+            return;
+        } else if (barCode.charAt(0) != '1' || barCode.charAt(barCode.length() - 1) != '1') {
+            System.out.println("Error: bar code missing a 1 at start or end");
+            return;
+        }
+        
+        barCode = barCode.substring(1, barCode.length() - 1);
+        
+        for (int i = 0; i < barCode.length(); i++) {
+            if (barCode.charAt(i) != '0' && barCode.charAt(i) != '1') {
+                System.out.println("bar code character: " + barCode.charAt(i) + " must be '0' or '1'");
+                err = true;
+            }
+        }
+        
+        if (err) {
+            return;
+        }
+        
+        String tempCode = barCode;
+        
+        while (tempCode.length() > 0) {
+            String part = tempCode.substring(0, 5);
+            
+            boolean flag = false;
+            
+            for (int i = 0; i < weights.length; i++) {
+                if (weights[i].equals(part)) {
+                    flag = true;
+                    break;
+                }
+            }
+            
+            if (!flag) {
+                System.out.println(part + " has invalid sequence in the bar code");
+                err = true;
+            }
+            
+            tempCode = tempCode.substring(5);
+        }
+        
+        if (err) {
+            return;
+        }
+        
+        this.Zip = ParseBarCode("1" + barCode + "1");
     }
     
     /**
